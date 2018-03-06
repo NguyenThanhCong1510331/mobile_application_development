@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	</head>
+	<body>
+		<script src="http://code.jquery.com/jquery-2.2.4.min.js">
+		</script>
+		Lat, Long: <br>
+		<input type = "text" id = "latlng"> <br>
+		<br>
+		<button type "button" onClick = "geocodeLatLng()"> Find </button> <br> 
+		<p id = "pst"></p>
+		<script>
+			var x = document.getElementById("pst")
+			function geocodeLatLng() {
+		        var input = document.getElementById('latlng').value;
+		        var latlngStr = input.split(',', 2);
+		        var latlng = {lat: parseFloat(latlngStr[0]), lng: parseFloat(latlngStr[1])};
+		        var geocoder = new google.maps.Geocoder;
+		        geocoder.geocode({'location': latlng}, function(results, status) {
+		          if (status === 'OK') {
+		            if (results[0]) {
+		              x.innerHTML = results[0].formatted_address;
+
+		            } else {
+		              window.alert('No results found');
+		            }
+		          } else {
+		            window.alert('Geocoder failed due to: ' + status);
+		          }
+		        });
+      	}
+		</script>
+		<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXeMGnStUtUn5N5Gsdy40LcNvARvqjGTc">
+    	</script>
+	</body>
+</html>
